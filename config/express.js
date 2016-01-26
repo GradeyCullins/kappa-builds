@@ -4,7 +4,9 @@ var config = require('./config'),
 	morgan = require('morgan'),
 	compress = require('compression'),
 	bodyParser = require('body-parser'),
-	methodOverride = require('method-override');
+	methodOverride = require('method-override'),
+	flash = require('connect-flash'),
+	passport = require('passport');
 
 module.exports = function() {
 	var app = express();
@@ -30,6 +32,10 @@ module.exports = function() {
 
 	app.set('views', './app/views');
 	app.set('view engine', 'ejs');
+
+	app.use(flash());
+	app.use(passport.initialize());
+	app.use(passport.session());
 	
 	// Import routes.
 	require('../app/routes/index.server.routes.js')(app);
