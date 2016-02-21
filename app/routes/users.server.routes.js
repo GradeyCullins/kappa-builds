@@ -25,5 +25,18 @@ module.exports = function(app) {
 		.put(users.update)
 		.delete(users.delete);
 
+	app.get('/auth/steam', passport.authenticate('steam', { failureRedirect: '/' }), 
+		function(req, res) {
+	    	res.redirect('/');
+  		}
+  	);
+
+	app.get('/auth/steam/return',
+	  	passport.authenticate('steam', { failureRedirect: '/' }),
+			function(req, res) {
+    			res.redirect('/');
+  			}
+  	);
+
 	app.param('userId', users.userByID);
 };
